@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" href="../base.css" />
+  </head>
+
+  <body>
+    <script src="https://unpkg.com/lodash"></script>
+    <script>
+      const wes = {
+        name: "Wes",
+        age: 100,
+      };
+
+      //another way to create object using 'age' variable
+      const age = 42;
+      const jim = {
+        age,
+        name: "Jim",
+        "cool-dude": false,
+        "really cool": true,
+        777: true,
+        dog: "Snickers",
+        clothing: {
+          shirts: 10,
+          pants: 2,
+        },
+        sayHello: function (greeting = "Hey") {
+          return `${greeting} ${this.name}`;
+        },
+        sayGoodbye(goodbye = "See ya") {
+          return `${goodbye} ${this.name}`;
+        },
+        sneeze: () => {
+          console.log("Ahhhh Choooo!"); // arrow functions do not scope 'this' to the thing that they are called against
+        },
+      };
+
+      // can add additional property to already existing object
+      jim.job = "car salesman";
+      // can overwrite a property
+      jim.age = 50;
+      // can make a frozen object if you want it to stay the same
+      const wesFroze = Object.freeze(wes); //makes it immutable
+
+      // 2 ways to log age property on wes object
+      console.log(wes.age); //100
+      console.log(wes["age"]); //100
+
+      // Object Reference vs Values
+      let name1 = "wes";
+      let name2 = "wes";
+      console.log(name1 === name2); // true
+      name1 = "scott";
+      console.log(name1 === name2); // false
+
+      // update name1 to be what is name2
+      name1 = name2;
+      console.log(name1 === name2);
+
+      const person1 = {
+        first: "wes",
+        last: "bos",
+        clothing: {
+          shirts: 10,
+          pants: 2,
+        },
+      };
+
+      const person2 = {
+        first: "wes",
+        last: "bos",
+      };
+
+      // const person3 = person1;
+      // person3.first = "Larry";
+      // const person3 = { ...person1 }; // this creates a copy, not a reference- shallow copies (1 level deep)
+      // person3.first = "Larry";
+
+      const person3 = _.cloneDeep(person1);
+      person3.first = "Larry";
+      person3.clothing.shirts = 100;
+    </script>
+  </body>
+</html>
+
+<!-- Objects
+*Everything in JS is an object
+*Objects allow us to group together keys and values (properties and values)
+*Objects have many uses from storing related data, storing functionality, all the way through creating your own custom objects
+*Objects are used in a way in that the order of the keys/properties does not matter
+  -just because the JS interpreter orders props a certain away, don't ever rely on it to maintain it the same way every time
+*Creating Objects
+ -Object literal syntax {}
+ -can also use new Object({}) - probably won't see this notation ever simply because the object literal syntax is much cleaner
+ -when creating objects, we can just use object literal syntax
+ - property : value
+ - values of an object can be any data-type, can even be other objects or arrays
+-You can NOT have variables with a dash in it, but you can have keys/properties with a dash in it- should try to avoid it thought
+-Always put comma dangles on the end of objects if you can
+*There is a gotcha around copying/cloning objects we'll reference in a bit
+*Adding a property/key after the object has been created 
+ -Use dot notation
+ -person.job = 'Web Developer'
+ -remember that const does NOT mean the value of an object cannot be changed- const means the binding to that person cannot be changed
+
+-->
